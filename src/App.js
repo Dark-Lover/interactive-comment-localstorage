@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import Comments from "./components/comments/Comments";
+import data from "./data.json";
+//* New Fetch to solve update UI issue
 
+import { fetch_comments } from "./redux";
+import { useDispatch, useSelector } from "react-redux";
+
+const fetchData = async () => {
+  const dataLs = localStorage.getItem("allData");
+  if (dataLs) {
+    console.log("Kaina Db");
+    const dataParsed = JSON.parse(dataLs);
+    return dataParsed;
+  } else {
+    localStorage.setItem("allData", JSON.stringify(data));
+    return data;
+  }
+  // console.log("My Ls Data: ", dataLs);
+  // const myData = data;
+};
+//* END
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const dataReady = useSelector((state) => state.newChange);
+  const dispatch = useDispatch();
+  const { comments } = useSelector((state) => state);
+  const sortedComments = comments.sort(function (a, b) {
+    return a.id - b.id;
+  });
+
+  //! come from comments
+  useEffect(() => {
+    // console.log("comments useEffect");
+    if (!dataReady) {
+      const myData = fetchData();
+      myData
+        .then((res) => {
+          dispatch(fetch_comments(res));
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [dataReady]);
+  //!
+
+  return <Comments data={sortedComments} dataReady={dataReady} />;
 }
 
 export default App;
