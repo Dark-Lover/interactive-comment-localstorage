@@ -9,8 +9,6 @@ import {ModalContainer,ModalWrapper,ModalTitle,ModalMsg,ModalCtrl,ModalCancel,Mo
 const Modal = () => {
   const dispatch = useDispatch();
   const origin = useSelector((state) => state.toDelete);
-  console.log("This is the origin to delete: ", origin);
-  // const { remove } = services;
   return (
     <ModalContainer>
       <ModalWrapper>
