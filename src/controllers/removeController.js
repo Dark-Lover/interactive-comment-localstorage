@@ -1,20 +1,14 @@
 import { deleteItem, toUpdate } from "./helpers";
 
-// Get data
-const comments = JSON.parse(localStorage.getItem("allData"));
-
 //! Remove Comment
 export const removeComment = (id) => {
+  // Get data
+  const comments = JSON.parse(localStorage.getItem("allData"));
   const newList = comments;
   const myId = id;
-  console.log(typeof id);
-  // console.log(`Remove Comment ID: ${myId}`);
   const toUpdateIs = toUpdate(newList, myId);
-  // console.log(toUpdateIs);
   const { comment, reply } = toUpdateIs;
-  console.log(toUpdateIs);
-  if (reply !== "") {
-    console.log("Maimknnnnnnch ######### nkono hna");
+  if (toUpdateIs.reply !== "") {
     //! Delete a Reply
     // delete reply
     const updatedReplies = deleteItem(comment.replies, reply.id);

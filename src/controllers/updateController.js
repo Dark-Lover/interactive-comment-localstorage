@@ -1,11 +1,10 @@
 import { deleteItem, toUpdate } from "./helpers";
 
-// Get data
-const comments = JSON.parse(localStorage.getItem("allData"));
-
 //! UPDATE
 //* Update a Reply, then a Comment
 export const updateCommentOnLs = (updCom, id) => {
+  // Get data
+  const comments = JSON.parse(localStorage.getItem("allData"));
   // Get Update Text and Comment ID
   const newContent = updCom;
   const newList = comments;
@@ -13,7 +12,6 @@ export const updateCommentOnLs = (updCom, id) => {
   // Get Comment or Reply to update
   const toUpdateIs = toUpdate(newList, myId);
   const { comment, reply } = toUpdateIs;
-  console.log(toUpdateIs);
   if (reply !== "") {
     //! Update a Reply
     const replyIndex = comment.replies.findIndex((rep) => rep.id === reply.id);
@@ -31,7 +29,6 @@ export const updateCommentOnLs = (updCom, id) => {
     //! Update a Comment
     comment.content = newContent;
     const updatedComment = comment;
-    // console.log(updatedComment);
     const updatedList = deleteItem(newList.comments, comment.id);
     updatedList.push(updatedComment);
     newList.comments = updatedList;

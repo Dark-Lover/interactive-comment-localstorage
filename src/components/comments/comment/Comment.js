@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { formatDistanceToNow } from "date-fns";
 import { to_delete } from "../../../redux";
 // React icons
 import { HiPlusSm, HiMinusSm } from "react-icons/hi";
@@ -29,7 +30,9 @@ const Comment = ({ content }) => {
               />
               <Name>{content.user.username}</Name>
             </Infos>
-            <CommentDate>{content.createdAt}</CommentDate>
+            <CommentDate>
+              {formatDistanceToNow(parseInt(content.createdAt, 10))} ago
+            </CommentDate>
           </CommentAuthor>
           <Message>{content.content}</Message>
         </Content>

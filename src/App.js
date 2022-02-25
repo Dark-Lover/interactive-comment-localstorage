@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Comments from "./components/comments/Comments";
 import data from "./data.json";
 //* New Fetch to solve update UI issue
@@ -9,15 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 const fetchData = async () => {
   const dataLs = localStorage.getItem("allData");
   if (dataLs) {
-    console.log("Kaina Db");
     const dataParsed = JSON.parse(dataLs);
     return dataParsed;
   } else {
     localStorage.setItem("allData", JSON.stringify(data));
     return data;
   }
-  // console.log("My Ls Data: ", dataLs);
-  // const myData = data;
 };
 //* END
 function App() {

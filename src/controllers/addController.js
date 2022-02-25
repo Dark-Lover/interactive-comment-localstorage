@@ -1,6 +1,5 @@
 import { deleteItem, getId, toUpdate } from "./helpers";
-// Get data
-const comments = JSON.parse(localStorage.getItem("allData"));
+
 // const { timePassed, deleteItem, getId, toUpdate } = require("./helpers");
 
 //? Controllers
@@ -8,6 +7,8 @@ const comments = JSON.parse(localStorage.getItem("allData"));
 //! ADD
 //* ADD a comment using Axios
 export const addCommentToLs = (newCom) => {
+  // Get data
+  const comments = JSON.parse(localStorage.getItem("allData"));
   const newList = comments;
   const newId = getId(comments);
   const createdAt = new Date().getTime();
@@ -30,6 +31,8 @@ export const addCommentToLs = (newCom) => {
 
 //* AddReply
 export const addReplyToLs = (newRep, id) => {
+  // Get data
+  const comments = JSON.parse(localStorage.getItem("allData"));
   const newList = comments;
   const replyToId = id;
   const newId = getId(comments);
@@ -49,8 +52,6 @@ export const addReplyToLs = (newRep, id) => {
     },
   });
   commentInfo.comment.replies.push(newComment);
-  // console.log('####### After ######');
-  // console.log(commentInfo);
   const updatedComment = commentInfo.comment;
   // Remove old version of the Comment
   const updatedList = deleteItem(newList.comments, commentInfo.comment.id);
